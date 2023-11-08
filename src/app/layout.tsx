@@ -1,16 +1,9 @@
 import "@/styles/global.css";
 
-import { Inter } from "next/font/google";
+import { inter } from "@/app/lib/font";
 import { headers } from "next/headers";
-
-import { Navigation } from "@/app/_components/navigation";
-
 import { TRPCReactProvider } from "@/trpc/react";
-
-const inter = Inter({
-	subsets: ["latin"],
-	variable: "--font-sans",
-});
+import { ThemeProvider } from "./_components/theme-provider";
 
 export const metadata = {
 	title: "Create T3 App",
@@ -21,10 +14,15 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang='en'>
-			<body className={`font-sans ${inter.variable} bg-gray-900 text-white`}>
+			<body className={`${inter.className} antialiased`}>
 				<TRPCReactProvider headers={headers()}>
-					<Navigation />
-					{children}
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='system'
+						enableSystem
+						disableTransitionOnChange>
+						{children}
+					</ThemeProvider>
 				</TRPCReactProvider>
 			</body>
 		</html>
