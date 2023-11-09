@@ -1,6 +1,9 @@
 import Link from "next/link";
-
+import { Navigation } from "./_components/navigation";
+import { Button } from "./_components/ui/button";
+import { Input } from "./_components/ui/input";
 import { getServerAuthSession } from "@/server/auth";
+import { geist } from "@/app/lib/font";
 // import { api } from "@/trpc/server";
 
 export default async function Home() {
@@ -8,43 +11,45 @@ export default async function Home() {
 	const session = await getServerAuthSession();
 
 	return (
-		<main className='flex min-h-screen flex-col items-center justify-center'>
-			<div className='flex w-full max-w-sm flex-col gap-4 rounded-md border border-gray-500 p-6'>
-				<header className='space-y-1'>
-					<h1 className='text-2xl font-medium'>Create an account</h1>
-					<p className='text-sm text-gray-300'>
-						Enter your email below to create an account
-					</p>
-				</header>
-				<div className='flex items-center justify-between'>
-					<button
-						type='button'
-						className='min-w-[150px] rounded-lg border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200'>
-						Alternative
-					</button>
-					<button
-						type='button'
-						className='min-w-[150px] rounded-lg border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200'>
-						Alternative
-					</button>
+		<>
+			<Navigation />
+			<main className='flex min-h-screen'>
+				<div className='mx-auto grid items-center gap-6'>
+					<div className='flex flex-col justify-center space-y-4 text-center'>
+						<div className='space-y-2'>
+							<h1 className='bg-gradient-to-r from-zinc-900 to-gray-600 bg-clip-text text-3xl font-bold tracking-tighter text-transparent dark:from-white dark:to-gray-500 sm:text-5xl xl:text-6xl/none'>
+								Welcome to our email client
+							</h1>
+							<p className='mx-auto max-w-[600px] text-zinc-600 dark:text-zinc-100 md:text-xl'>
+								Manage all your emails in one place. Securely and efficiently.
+							</p>
+						</div>
+						<div className='mx-auto w-full max-w-sm space-y-2'>
+							<form className='flex space-x-2'>
+								<Input
+									// className='max-w-lg flex-1 border-gray-900 bg-gray-800 text-white'
+									placeholder='Enter your email'
+									type='email'
+								/>
+								<Button
+									variant='default'
+									type='submit'>
+									Start Now
+								</Button>
+							</form>
+							<p className='text-xs text-zinc-600 dark:text-zinc-100'>
+								Start managing your emails today.
+								<Link
+									className='text-white underline underline-offset-2'
+									href='#'>
+									Terms & Conditions
+								</Link>
+							</p>
+						</div>
+					</div>
 				</div>
-				<form action=''></form>
-				<div className='flex items-center'>
-					<span className='border' />
-					<p>OR CONTINUE WITH</p>
-					<span className='border' />
-				</div>
-				<button>Gmail</button>
-
-				<footer>
-					<p>
-						By clicking continue, you agree to our{" "}
-						<Link href={"/"}>Terms of Services</Link> and{" "}
-						<Link href={"/"}>Privacy Policy</Link>
-					</p>
-				</footer>
-			</div>
-		</main>
+			</main>
+		</>
 	);
 }
 
