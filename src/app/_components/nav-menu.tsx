@@ -4,12 +4,12 @@ import { cn } from "../lib/utils";
 export function NavMenu({ className, ...props }: React.HtmlHTMLAttributes<HTMLElement>) {
 	return (
 		<nav
-			className={cn("flex items-center space-x-4 lg:space-x-6", className)}
+			className={cn("flex items-baseline space-x-4 lg:space-x-6", className)}
 			{...props}>
-			<Link href='/'>About</Link>
-			<Link href='/'>Features</Link>
-			<Link href='/'>Pricing</Link>
-			<Link href='/'>Pricing</Link>
+			<Link href='/about'>About</Link>
+			<Link href='/features'>Features</Link>
+			<Link href='/pricing'>Pricing</Link>
+			<Link href='/developer'>Developer</Link>
 		</nav>
 	);
 }

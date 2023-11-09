@@ -1,11 +1,46 @@
 import { NavMenu } from "./nav-menu";
 import { UserNav } from "./user-nav";
+import { Button, buttonVariants } from "./ui/button";
+import Link from "next/link";
+import { cn } from "../lib/utils";
+import { getServerAuthSession } from "@/server/auth";
+import { ThemeToggle } from "./theme-toggle";
 
-export function navigation() {
+export async function Navigation(): Promise<JSX.Element> {
+	const session = await getServerAuthSession();
 	return (
-		<header className='flex items-center justify-between'>
-			<NavMenu />
-			<UserNav />
+		<header className='sticky top-0 border-b border-gray-200 bg-white/10 backdrop-blur-md dark:border-gray-800 dark:bg-black/10'>
+			<div className='mx-auto flex max-w-screen-2xl items-center justify-between px-4 py-3'>
+				<div className='flex items-baseline space-x-6'>
+					<h1 className='text-2xl font-semibold tracking-normal'>
+						Mail<span className='font-bold text-primary'>Repo</span>
+					</h1>
+					<NavMenu />
+				</div>
+				<section className='flex items-center gap-4'>
+					{session?.user ? (
+						<UserNav />
+					) : (
+						<>
+							<Link
+								className={cn(buttonVariants({ variant: "ghost" }))}
+								href='/account'>
+								Login
+							</Link>
+							{/* <Link
+								href='/account'
+								className={cn(
+									buttonVariants({ variant: "outline" }),
+									"bg-black text-white dark:bg-white dark:text-black",
+								)}>
+								Start for free
+							</Link> */}
+						</>
+					)}
+					<ThemeToggle />
+					<UserNav />
+				</section>
+			</div>
 		</header>
 	);
 }
