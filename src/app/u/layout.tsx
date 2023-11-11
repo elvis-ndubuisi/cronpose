@@ -1,5 +1,8 @@
 import { geist } from "@/app/lib/font";
 import { type Metadata } from "next";
+import DashboardMenu from "../_components/dashboard-menu";
+import { Separator } from "../_components/ui/separator";
+import Sidebar from "../_components/sidebar";
 
 export const metadata: Metadata = {
 	title: "Create T3 App",
@@ -9,9 +12,18 @@ export const metadata: Metadata = {
 
 export default function ULayout({ children }: { children: React.ReactNode }) {
 	return (
-		<main className={geist.className}>
-			<h1>U layout</h1>
-			<>{children}</>
+		<main>
+			<DashboardMenu />
+			<Separator />
+			<section className='mx-auto flex h-[92vh] max-w-screen-2xl flex-row px-4 md:px-3'>
+				<Sidebar />
+				<Separator
+					orientation='vertical'
+					className='mx-3'
+				/>
+				<main className='flex-1 py-3'>{children}</main>
+			</section>
+			{/* <footer>footer</footer> */}
 		</main>
 	);
 }
