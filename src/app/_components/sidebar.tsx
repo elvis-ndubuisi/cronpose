@@ -39,7 +39,7 @@ export default function Sidebar() {
 						variant: "ghost",
 						className: "flex w-full justify-stretch",
 					})}>
-					<ScrollText className='mr-2 h-5 w-5' />
+					<ScrollText className='mr-3 h-5 w-5' />
 					Draft
 				</Link>
 				<Link
@@ -57,7 +57,7 @@ export default function Sidebar() {
 						variant: "ghost",
 						className: "flex w-full justify-stretch",
 					})}>
-					<Settings />
+					<Settings className='mr-3 h-5 w-5' />
 					Settings
 				</Link>
 				<Link
