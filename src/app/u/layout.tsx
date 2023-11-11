@@ -1,4 +1,3 @@
-import { geist } from "@/app/lib/font";
 import { type Metadata } from "next";
 import DashboardMenu from "../_components/dashboard-menu";
 import { Separator } from "../_components/ui/separator";
@@ -17,13 +16,9 @@ export default function ULayout({ children }: { children: React.ReactNode }) {
 			<Separator />
 			<section className='mx-auto flex h-[92vh] max-w-screen-2xl flex-row px-4 md:px-3'>
 				<Sidebar />
-				<Separator
-					orientation='vertical'
-					className='mx-3'
-				/>
-				<main className='flex-1 py-3'>{children}</main>
+				<Separator orientation='vertical' />
+				{children}
 			</section>
-			{/* <footer>footer</footer> */}
 		</main>
 	);
 }

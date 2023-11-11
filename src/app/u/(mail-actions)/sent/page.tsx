@@ -1,3 +1,3 @@
 export default function Sent() {
-	return <section>Sent</section>;
+	return <section className='p-3'>Sent</section>;
 }

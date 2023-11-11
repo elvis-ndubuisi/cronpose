@@ -1,3 +1,3 @@
 export default function Draft() {
-	return <section>draft</section>;
+	return <section className='p-3'>draft</section>;
 }

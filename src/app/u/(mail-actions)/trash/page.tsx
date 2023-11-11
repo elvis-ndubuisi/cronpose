@@ -1,3 +1,3 @@
 export default function Trash() {
-	return <section>Trash</section>;
+	return <section className='p-3'>Trash</section>;
 }
