@@ -4,6 +4,7 @@ import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
 import { getServerAuthSession } from "@/server/auth";
 import { geist } from "@/app/lib/font";
+import { Settings, Send, Mail, Icon00, Tweak } from "@/app/_components/icons";
 // import { api } from "@/trpc/server";
 
 export default async function Home() {
@@ -27,7 +28,7 @@ export default async function Home() {
 						<div className='mx-auto w-full max-w-sm space-y-2'>
 							<form className='flex space-x-2'>
 								<Input
-									// className='max-w-lg flex-1 border-gray-900 bg-gray-800 text-white'
+									className='max-w-lg flex-1 border-gray-900 bg-gray-800 text-white'
 									placeholder='Enter your email'
 									type='email'
 								/>
@@ -37,6 +38,13 @@ export default async function Home() {
 									Start Now
 								</Button>
 							</form>
+							<section>
+								<Icon00 />
+								<Tweak />
+								<Settings />
+								<Mail />
+								<Send />
+							</section>
 							<p className='text-xs text-zinc-600 dark:text-zinc-100'>
 								Start managing your emails today.
 								<Link
