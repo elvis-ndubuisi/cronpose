@@ -24,7 +24,7 @@ export default async function DashboardMenu() {
 						</Link>
 					))}
 				</nav>
-				<UserNav session={session} />
+				{session && <UserNav session={session} />}
 			</section>
 		</header>
 	);
