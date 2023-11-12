@@ -1,6 +1,6 @@
 import { NavMenu } from "./nav-menu";
 import { UserNav } from "./user-nav";
-import { Button, buttonVariants } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 import Link from "next/link";
 import { cn } from "../lib/utils";
 import { getServerAuthSession } from "@/server/auth";
@@ -19,26 +19,17 @@ export async function Navigation(): Promise<JSX.Element> {
 				</div>
 				<section className='flex items-center gap-4'>
 					{session?.user ? (
-						<UserNav />
+						<UserNav session={session} />
 					) : (
 						<>
 							<Link
-								className={cn(buttonVariants({ variant: "ghost" }))}
-								href='/account'>
-								Login
+								className={cn(buttonVariants({ variant: "link" }))}
+								href='/auth/signin'>
+								Join
 							</Link>
-							{/* <Link
-								href='/account'
-								className={cn(
-									buttonVariants({ variant: "outline" }),
-									"bg-black text-white dark:bg-white dark:text-black",
-								)}>
-								Start for free
-							</Link> */}
 						</>
 					)}
 					<ThemeToggle />
-					<UserNav />
 				</section>
 			</div>
 		</header>

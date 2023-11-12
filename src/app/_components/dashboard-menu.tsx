@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { UserNav } from "./user-nav";
+import { getServerAuthSession } from "@/server/auth";
 
 const LINKS = [
 	{ title: "Home", href: "/" },
@@ -8,10 +9,11 @@ const LINKS = [
 	{ title: "Notification", href: "/notifications" },
 ];
 
-export default function DashboardMenu() {
+export default async function DashboardMenu() {
+	const session = await getServerAuthSession();
 	return (
 		<header className='py-2'>
-			<section className='font-sm mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-3'>
+			<section className='mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-3'>
 				<nav className='flex items-center gap-4'>
 					{LINKS.map((link) => (
 						<Link
@@ -22,7 +24,7 @@ export default function DashboardMenu() {
 						</Link>
 					))}
 				</nav>
-				{/* <UserNav /> */}
+				<UserNav session={session} />
 			</section>
 		</header>
 	);

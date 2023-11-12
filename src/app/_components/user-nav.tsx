@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import Link from "next/link";
+import React from "react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -13,14 +14,18 @@ import {
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { signOut, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { type Session } from "next-auth";
 
-export function UserNav() {
+export function UserNav(props: { session: Session }) {
+	const user = props.session.user;
 	return (
 		<section className='flex items-center gap-2'>
 			<Badge
-				variant='default'
-				className='py-1.5'>
-				200 Credits
+				variant='secondary'
+				className=''>
+				200 MCR
 			</Badge>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
@@ -29,8 +34,8 @@ export function UserNav() {
 						className='relative h-8 w-8 rounded-full'>
 						<Avatar className='h-8 w-8'>
 							<AvatarImage
-								src='/avatars/01.png'
-								alt='@shadcn'
+								src={user.image ?? ""}
+								alt={user.name ?? ""}
 							/>
 							<AvatarFallback>SC</AvatarFallback>
 						</Avatar>
@@ -43,16 +48,16 @@ export function UserNav() {
 					forceMount>
 					<DropdownMenuLabel className=''>
 						<div className='flex flex-col space-y-1'>
-							<p className='text-sm font-semibold leading-none'>shadcn</p>
+							<p className='text-sm font-semibold leading-none'>{user.name ?? ""}</p>
 							<p className='text-xs font-medium leading-none text-muted-foreground'>
-								m@example.com
+								{user.email}
 							</p>
 						</div>
 					</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<DropdownMenuGroup>
 						<DropdownMenuItem asChild>
-							<Link href={`/u/dashboard`}>Dashboard</Link>
+							<Link href={`/u/subscribers`}>Dashboard</Link>
 						</DropdownMenuItem>
 						<DropdownMenuItem>
 							Billing
@@ -65,7 +70,7 @@ export function UserNav() {
 						<DropdownMenuItem>New Team</DropdownMenuItem>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem>
+					<DropdownMenuItem onClick={() => signOut()}>
 						Log out
 						<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
 					</DropdownMenuItem>
