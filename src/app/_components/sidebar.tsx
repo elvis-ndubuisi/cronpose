@@ -10,106 +10,65 @@ import {
 	SendHorizontal,
 	Users,
 } from "./icons";
+import { SidebarLink } from "./nav-link";
 
 export default function Sidebar() {
 	return (
-		<aside className='flex h-full w-52 flex-col justify-start space-y-3 py-3'>
-			<section>
-				<Link
-					href='subscribers'
+		<aside className='flex h-full w-52 flex-col justify-start space-y-3 p-3'>
+			<section className='flex flex-col gap-1'>
+				<SidebarLink href='/u/subscribers'>
+					<MailBox className='mr-3 h-5 w-5' />
+					Subscribers
+				</SidebarLink>
+				{/* <Link
+					href='/u/subscribers'
 					className={buttonVariants({
-						variant: "ghost",
+						variant: "secondary",
 						className: "flex w-full justify-stretch",
 					})}>
 					<MailBox className='mr-3 h-5 w-5' />
 					Subscribers
-				</Link>
-				<Link
-					href='sent'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+				</Link> */}
+				<SidebarLink href='/u/sent'>
 					<SendHorizontal className='mr-3 h-5 w-5' />
 					Sent
-				</Link>
-				<Link
-					href='draft'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+				</SidebarLink>
+				<SidebarLink href='/u/draft'>
 					<ScrollText className='mr-3 h-5 w-5' />
 					Draft
-				</Link>
-				<Link
-					href='trash'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+				</SidebarLink>
+				<SidebarLink href='/u/trash'>
 					<Trash className='mr-3 h-5 w-5' />
 					Trash
-				</Link>
-				<Link
-					href='/settings'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+				</SidebarLink>
+				<SidebarLink href='/settings'>
 					<Settings className='mr-3 h-5 w-5' />
 					Settings
-				</Link>
-				<Link
-					href='analytics'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+				</SidebarLink>
+				<SidebarLink href='/analytics'>
 					<MailWarning className='mr-3 h-5 w-5' />
 					Analytics
-				</Link>
+				</SidebarLink>
 			</section>
 			<Separator />
-			<section className='flex flex-col space-y-2'>
-				<h2 className='mb-2 text-lg font-semibold tracking-tight'>Group</h2>
-
-				<Link
-					href='/u/group/asdfad'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+			<section className='flex flex-col gap-1'>
+				<h2 className='mb-2 text-lg font-semibold tracking-tight'>Groups</h2>
+				<SidebarLink href='/u/group/asdfad'>
 					<Users className='mr-3 h-5 w-5' />
 					Sales Team
-				</Link>
-				<Link
-					href='/u/group/asdfad'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+				</SidebarLink>
+				<SidebarLink href='/u/group/asdfad'>
 					<Users className='mr-3 h-5 w-5' />
 					Youtube People
-				</Link>
-				<Link
-					href='/u/group/asdfad'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+				</SidebarLink>
+				<SidebarLink href='/u/group/asdfad'>
 					<Users className='mr-3 h-5 w-5' />
 					Expenses
-				</Link>
-				<Link
-					href='/u/group/asdfad'
-					className={buttonVariants({
-						variant: "ghost",
-						className: "flex w-full justify-stretch",
-					})}>
+				</SidebarLink>
+				<SidebarLink href='/u/group/asdfad'>
 					<Users className='mr-3 h-5 w-5' />
 					Personal
-				</Link>
+				</SidebarLink>
 			</section>
 		</aside>
 	);
