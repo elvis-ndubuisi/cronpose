@@ -38,13 +38,6 @@ export default async function Home() {
 									Start Now
 								</Button>
 							</form>
-							<section>
-								<Icon00 />
-								<Tweak />
-								<Settings />
-								<Mail />
-								<Send />
-							</section>
 							<p className='text-xs text-zinc-600 dark:text-zinc-100'>
 								Start managing your emails today.
 								<Link

@@ -1,9 +1,10 @@
 import "@/styles/global.css";
 
-import { inter } from "@/app/lib/font";
+import { geist, geistMono } from "@/app/lib/font";
 import { headers } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
-import { ThemeProvider } from "./_components/theme-provider";
+import { ThemeProvider } from "./_context/theme-provider";
+import { AuthSessionProvider } from "./_context/auth-session-provider";
 
 export const metadata = {
 	title: "Create T3 App",
@@ -14,16 +15,18 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang='en'>
-			<body className={`${inter.className} antialiased`}>
-				<TRPCReactProvider headers={headers()}>
-					<ThemeProvider
-						attribute='class'
-						defaultTheme='system'
-						enableSystem
-						disableTransitionOnChange>
-						{children}
-					</ThemeProvider>
-				</TRPCReactProvider>
+			<body className={`${geist.variable} ${geistMono.variable} font-sans`}>
+				<AuthSessionProvider>
+					<TRPCReactProvider headers={headers()}>
+						<ThemeProvider
+							attribute='class'
+							defaultTheme='system'
+							enableSystem
+							disableTransitionOnChange>
+							{children}
+						</ThemeProvider>
+					</TRPCReactProvider>
+				</AuthSessionProvider>
 			</body>
 		</html>
 	);
