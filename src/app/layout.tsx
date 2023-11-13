@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "./_context/theme-provider";
+import { Toaster } from "./_components/ui/toaster";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -33,6 +34,7 @@ export default function RootLayout({
 						disableTransitionOnChange
 					>
 						{children}
+						<Toaster />
 					</ThemeProvider>
 				</TRPCReactProvider>
 			</body>

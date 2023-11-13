@@ -1,13 +1,17 @@
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
-import { Button } from "./_components/ui/button";
+import Navbar from "./_components/navigations/navbar";
+import PageFooter from "./_components/page-footer";
 
 export default async function Home() {
 	const hello = await api.post.hello.query({ text: "from tRPC" });
 	const session = await getServerAuthSession();
+
 	return (
-		<main className="min-h-screen">
-			<Button variant={"destructive"}>asdfads</Button>
-		</main>
+		<>
+			<Navbar />
+			<main className="min-h-screen"></main>
+			<PageFooter />
+		</>
 	);
 }
