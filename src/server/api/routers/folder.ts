@@ -25,10 +25,7 @@ export const folderRouter = createTRPCRouter({
 	edit: protectedProcedure.input(z.string()).mutation(async () => {
 		return "";
 	}),
-	getAll: protectedProcedure.query(({ ctx, input }) => {
-		return "";
-	}),
-	get: protectedProcedure.query(() => {
+	getFolders: protectedProcedure.query(({ ctx, input }) => {
 		return "";
 	}),
 });
