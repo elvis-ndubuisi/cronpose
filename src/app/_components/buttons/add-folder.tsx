@@ -15,7 +15,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 export default function AddFolder() {
 	return (
 		<Dialog>
-			<DialogTrigger>
+			<DialogTrigger asChild>
 				<Button size="icon" variant="ghost">
 					<PlusIcon />
 				</Button>
