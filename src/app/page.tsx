@@ -1,12 +1,14 @@
 import { getServerAuthSession } from "~/server/auth";
-import { api } from "~/trpc/server";
+// import { api } from "~/trpc/server";
 import Navbar from "./_components/navigations/navbar";
 import PageFooter from "./_components/page-footer";
 import { Button } from "./_components/ui/button";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-	const hello = await api.post.hello.query({ text: "from tRPC" });
+	// const hello = await api.post.hello.query({ text: "from tRPC" });
 	const session = await getServerAuthSession();
+	if (session?.user) redirect("/n/subscribers");
 
 	return (
 		<>

@@ -7,6 +7,7 @@ import {
 	MailWarning,
 	SendHorizontal,
 	Users,
+	Container,
 } from "../icons";
 import { SidebarLink } from "./nav-links";
 import { buttonVariants } from "../ui/button";
@@ -46,7 +47,9 @@ export default function Sidebar() {
 			<Separator />
 			<ScrollArea className="flex flex-1 flex-col gap-1">
 				<div className="flex items-center justify-between">
-					<h2 className="mb-2 text-lg font-semibold tracking-tight">Groups</h2>
+					<h2 className="mb-2 flex items-center space-x-2 text-lg font-semibold tracking-tight">
+						<Container className="h-5 w-5" /> <span>Groups</span>
+					</h2>
 					<AddFolder />
 				</div>
 				<SidebarLink href="/n/folder/asdfad">
