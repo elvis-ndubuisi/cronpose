@@ -45,7 +45,15 @@ export const authOptions: NextAuthOptions = {
 				id: user.id,
 			},
 		}),
+		// async jwt(params) {},
+		// async session({ session, user, token }) {},
+		// signIn(params) {
+		// 	const { user } = params;
+		// 	const credit = 200;
+		// 	return true;
+		// },
 	},
+	// session: { strategy: "jwt" },
 	// pages: {
 	// 	signIn: "/auth",
 	// },
@@ -60,15 +68,6 @@ export const authOptions: NextAuthOptions = {
 			clientId: env.FACEBOOK_CLIENT_ID,
 			clientSecret: env.FACEBOOK_CLIENT_SECRET,
 		}),
-		/**
-		 * ...add more providers here.
-		 *
-		 * Most other providers require a bit more work than the Discord provider. For example, the
-		 * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-		 * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-		 *
-		 * @see https://next-auth.js.org/providers/github
-		 */
 	],
 };
 

@@ -47,6 +47,11 @@ model User {
   sessions      Session[]
 
   credits Int @default(0)
+
+	subscribers Subscriber[]
+	trashes Trash[]
+	mails Mail[]
+	subFolders SubscriberFolder[]
 }
 
 model VerificationToken {
@@ -63,6 +68,7 @@ model Subscriber {
   name          String?
   address       String
   unsubscribeId String  @default(uuid())
+	author User[]
 
   groups SubscriberFolder[]
 
@@ -72,17 +78,17 @@ model Subscriber {
 model SubscriberFolder {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
-  authorId String @db.ObjectId
+  author User
 
   Subscriber   Subscriber? @relation(fields: [subscriberId], references: [id])
   subscriberId String?     @db.ObjectId
 
-  @@index([authorId])
+
 }
 
 model Mail {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  authorId String @db.ObjectId
+  author User
 
   recipients    String[]
   ccRecipients  String[] @default([])
@@ -94,16 +100,16 @@ model Mail {
   status    Status   @default(DRAFT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   Trash     Trash?   @relation(fields: [trashId], references: [id])
   trashId   String?  @db.ObjectId
 
-  @@index([authorId])
 }
 
 model Trash {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   trashedMail Mail[]
+	author User
 }
 
 enum Status {

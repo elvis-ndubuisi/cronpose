@@ -4,7 +4,7 @@ import { getServerAuthSession } from "~/server/auth";
 
 const LINKS = [
 	{ title: "Home", href: "/" },
-	{ title: "Templates", href: "/template" },
+	{ title: "Templates", href: "/templates" },
 	{ title: "Profile", href: "/profile" },
 	{ title: "Notification", href: "/notifications" },
 ];
