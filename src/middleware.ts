@@ -6,5 +6,5 @@ export default withAuth(function middleware(req) {
 }, {});
 
 export const config = {
-	matcher: ["/n/:path*"],
+	matcher: ["/w/:path*"],
 };
