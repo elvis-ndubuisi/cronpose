@@ -48,10 +48,9 @@ model User {
 
   credits Int @default(0)
 
-	subscribers Subscriber[]
-	trashes Trash[]
-	mails Mail[]
-	subFolders SubscriberFolder[]
+  subscribers Subscriber[]
+  subFolders  SubscriberFolder[]
+  mails       Mail[]
 }
 
 model VerificationToken {
@@ -68,52 +67,45 @@ model Subscriber {
   name          String?
   address       String
   unsubscribeId String  @default(uuid())
-	author User[]
 
-  groups SubscriberFolder[]
+  authorId String? @db.ObjectId
+  author   User?   @relation(fields: [authorId], references: [id])
+
+  folders String[] @db.ObjectId
 
   @@index([address])
 }
 
 model SubscriberFolder {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  author User
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
 
-  Subscriber   Subscriber? @relation(fields: [subscriberId], references: [id])
-  subscriberId String?     @db.ObjectId
+  authorId String? @db.ObjectId
+  author   User?   @relation(fields: [authorId], references: [id])
 
-
+  subscribers String[]
 }
 
 model Mail {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  author User
-
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
   recipients    String[]
   ccRecipients  String[] @default([])
   bccRecipients String[] @default([])
   subject       String
-  body          String
-  from          String
+  body          String?
+  from          String?
+
+  authorId String @db.ObjectId
+  author   User   @relation(fields: [authorId], references: [id])
 
   status    Status   @default(DRAFT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  Trash     Trash?   @relation(fields: [trashId], references: [id])
-  trashId   String?  @db.ObjectId
-
-}
-
-model Trash {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  trashedMail Mail[]
-	author User
 }
 
 enum Status {
   DRAFT
   SENT
   PENDING
+  TRASH
 }
