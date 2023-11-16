@@ -67,6 +67,7 @@ model Subscriber {
   name          String?
   address       String
   unsubscribeId String  @default(uuid())
+	subscriptionDate DateTime @default(now())
 
   authorId String? @db.ObjectId
   author   User?   @relation(fields: [authorId], references: [id])
