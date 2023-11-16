@@ -1,10 +1,12 @@
 import SubscribersTable from "~/app/_components/table/subscribers-table";
 import { columns } from "~/app/_components/table/columns";
 import AddSubscriber from "~/app/_components/buttons/add-subscriber";
+import { api } from "~/trpc/server";
 
 import { mails } from "~/lib/data";
 
-export default function Subscribers() {
+export default async function Subscribers() {
+	const subscribers = await api.subscriber.getSubs.query();
 	return (
 		<div className="flex h-full flex-1 flex-col p-3">
 			<header className="flex items-center justify-between space-y-2">
@@ -16,7 +18,7 @@ export default function Subscribers() {
 					<AddSubscriber />
 				</div>
 			</header>
-			<SubscribersTable data={mails} columns={columns} />
+			<SubscribersTable data={subscribers} columns={columns} />
 		</div>
 	);
 }
