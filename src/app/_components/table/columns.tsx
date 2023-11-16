@@ -32,14 +32,16 @@ export const columns: ColumnDef<Mail>[] = [
 	{
 		accessorKey: "id",
 		header: ({ column }) => (
-			<SubscribersTableColumnHeader column={column} title="Email Id" />
+			<SubscribersTableColumnHeader column={column} title="Email ID" />
 		),
-		cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+		cell: ({ row }) => (
+			<div className="line-clamp-1 w-[80px]">{row.getValue("id")}</div>
+		),
 		enableSorting: false,
 		enableHiding: false,
 	},
 	{
-		accessorKey: "subscriberName",
+		accessorKey: "name",
 		header: ({ column }) => (
 			<SubscribersTableColumnHeader column={column} title="Subscriber Name" />
 		),
@@ -50,14 +52,14 @@ export const columns: ColumnDef<Mail>[] = [
 				<div className="flex space-x-2">
 					{/* {label && <Badge variant='outline'>{label.label}</Badge>} */}
 					<span className="max-w-[500px] truncate font-medium">
-						{row.getValue("subscriberName")}
+						{row.getValue("name")}
 					</span>
 				</div>
 			);
 		},
 	},
 	{
-		accessorKey: "email",
+		accessorKey: "address",
 		header: ({ column }) => (
 			<SubscribersTableColumnHeader column={column} title="Email Address" />
 		),
@@ -68,7 +70,7 @@ export const columns: ColumnDef<Mail>[] = [
 				<div className="flex space-x-2">
 					{/* {label && <Badge variant='outline'>{label.label}</Badge>} */}
 					<span className="max-w-[500px] truncate font-medium">
-						{row.getValue("email")}
+						{row.getValue("address")}
 					</span>
 				</div>
 			);
@@ -80,17 +82,18 @@ export const columns: ColumnDef<Mail>[] = [
 			<SubscribersTableColumnHeader column={column} title="Subscription Date" />
 		),
 		cell: ({ row }) => {
+			const date = new Date(
+				row.getValue("subscriptionDate"),
+			).toLocaleDateString();
 			return (
 				<div className="flex space-x-2">
-					<span className="max-w-[500px] truncate font-medium">
-						{row.getValue("subscriptionDate")}
-					</span>
+					<span className="max-w-[500px] truncate font-medium">{date}</span>
 				</div>
 			);
 		},
 	},
 	{
-		accessorKey: "group",
+		accessorKey: "folders",
 		header: ({ column }) => (
 			<SubscribersTableColumnHeader column={column} title="Group" />
 		),
@@ -98,7 +101,7 @@ export const columns: ColumnDef<Mail>[] = [
 			return (
 				<div className="flex space-x-2">
 					<span className="max-w-[500px] truncate font-medium">
-						{row.getValue("group")}
+						{row.getValue("folder")}
 					</span>
 				</div>
 			);

@@ -8,6 +8,7 @@ import {
 import { db } from "~/server/db";
 
 export const subscriberRouter = createTRPCRouter({
+	// Adds a single new subscriber to subscribers list
 	add: protectedProcedure
 		.input(
 			z.object({
@@ -20,29 +21,68 @@ export const subscriberRouter = createTRPCRouter({
 				data: {
 					address: input.address,
 					name: input.name,
-					unsubscribeId: ctx.session.user.id,
+					authorId: ctx.session.user.id,
 				},
 			});
 		}),
+	// Deletes a single subscriber from subscribers list
 	delete: protectedProcedure
-		.input(z.string())
+		.input(z.object({ id: z.string() }))
 		.mutation(async ({ ctx, input }) => {
-			return await ctx.db.subscriber.delete({ where: { id: input } });
+			return await ctx.db.subscriber.delete({
+				where: { id: input.id, authorId: ctx.session.user.id },
+			});
 		}),
+	// Deletes all selected subscriber from subscriber list
+	deleteSelected: protectedProcedure
+		.input(z.array(z.string()))
+		.mutation(({ ctx, input }) => {
+			return "";
+		}),
+	// Edit subscriber's name/address
 	edit: protectedProcedure
-		.input(z.object({}))
+		.input(
+			z.object({
+				id: z.string(),
+				name: z.string().trim().toLowerCase().optional(),
+				address: z.string().trim().toLowerCase().email().optional(),
+			}),
+		)
 		.mutation(async ({ ctx, input }) => {
-			return await ctx.db.subscriber.findFirst({ where: { id: "" } });
+			return await ctx.db.subscriber.update({
+				where: { id: input.id, authorId: ctx.session.user.id },
+				data: { address: input.address, name: input.name },
+			});
 		}),
-	group: protectedProcedure.input(z.object({})).mutation(() => {
-		return "";
+	// Add a subscriber to a group
+	group: protectedProcedure
+		.input(
+			z.object({
+				subscribers: z.array(z.string()),
+				groupName: z.string().min(4),
+			}),
+		)
+		.mutation(async ({ ctx, input }) => {
+			return "";
+		}),
+	// Fetch all subscribers -- paginated
+	getSubs: protectedProcedure.query(async ({ ctx }) => {
+		return await ctx.db.subscriber.findMany({
+			where: { authorId: ctx.session.user.id },
+		});
 	}),
-	getSubs: protectedProcedure.query(({ ctx }) => {
-		return "";
-	}),
-	getSubsGroup: protectedProcedure.input(z.string()).query(({ ctx, input }) => {
-		return "";
-	}),
+	// Fetch all subscribers in a group -- paginated
+	getSubsGroup: protectedProcedure
+		.input(z.string())
+		.query(async ({ ctx, input }) => {
+			return await ctx.db.subscriber.findMany({ where: { id: "" } });
+		}),
+	// Removes a subscriber from a group
+	deleteSubcriberFromGroup: protectedProcedure
+		.input(z.string())
+		.mutation(() => {
+			return "";
+		}),
 	// hello: publicProcedure
 	// 	.input(z.object({ text: z.string() }))
 	// 	.query(({ input }) => {

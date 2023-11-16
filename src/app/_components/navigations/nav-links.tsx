@@ -14,7 +14,7 @@ export function SidebarLink(props: {
 			href={props.href}
 			className={buttonVariants({
 				variant: pathname.includes(props.href) ? "secondary" : "ghost",
-				className: "flex w-full justify-stretch",
+				className: "flex w-full justify-stretch capitalize",
 			})}
 		>
 			{props.children}
