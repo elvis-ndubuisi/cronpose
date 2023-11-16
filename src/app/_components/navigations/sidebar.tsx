@@ -14,8 +14,10 @@ import { buttonVariants } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import Link from "next/link";
 import AddFolder from "../buttons/add-folder";
+import { api } from "~/trpc/server";
 
-export default function Sidebar() {
+export default async function Sidebar() {
+	const folders = await api.folder.getFolders.query();
 	return (
 		<aside className="flex h-full w-60 flex-col justify-between space-y-3 p-3">
 			<section className="flex flex-col gap-1">
@@ -52,18 +54,16 @@ export default function Sidebar() {
 					</h2>
 					<AddFolder />
 				</div>
-				<SidebarLink href="/n/folder/asdfad">
-					<Users className="mr-3 h-5 w-5" />
-					Sales Team
-				</SidebarLink>
-				<SidebarLink href="/n/folder/asdfad">
-					<Users className="mr-3 h-5 w-5" />
-					Youtube People
-				</SidebarLink>
-				<SidebarLink href="/n/folder/asdfad">
-					<Users className="mr-3 h-5 w-5" />
-					Expenses
-				</SidebarLink>
+				{/* TODO: add empty state view */}
+				{folders.map((folder) => (
+					<SidebarLink
+						href={`/n/folder/${folder.name.toLowerCase()}`}
+						key={folder.id}
+					>
+						<Users className="mr-3 h-5 w-5" />
+						{folder.name}
+					</SidebarLink>
+				))}
 			</ScrollArea>
 			<Separator />
 			<Link

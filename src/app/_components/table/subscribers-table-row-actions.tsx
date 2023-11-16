@@ -3,7 +3,10 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { type Row } from "@tanstack/react-table";
 import { mailSchema } from "~/lib/validations/mails";
+import { api } from "~/trpc/react";
+import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import EditSubscriber from "../buttons/edit-subscriber";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -25,7 +28,14 @@ interface DataTableRowActionsProps<TData> {
 export default function SubscribersTableRowActions({
 	row,
 }: DataTableRowActionsProps<TData>) {
+	const router = useRouter();
 	const email = mailSchema.parse(row.original);
+
+	const deleteSubscriber = api.subscriber.delete.useMutation({
+		onSuccess: () => {
+			router.refresh();
+		},
+	});
 
 	return (
 		<DropdownMenu>
@@ -39,7 +49,9 @@ export default function SubscribersTableRowActions({
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-[160px]">
-				<DropdownMenuItem>Edit</DropdownMenuItem>
+				<DropdownMenuItem>
+					<EditSubscriber {...email} />
+				</DropdownMenuItem>
 				<DropdownMenuItem>Make a copy</DropdownMenuItem>
 				<DropdownMenuItem>Favorite</DropdownMenuItem>
 				{/* <DropdownMenuSeparator />
@@ -58,9 +70,13 @@ export default function SubscribersTableRowActions({
 					</DropdownMenuSubContent>
 				</DropdownMenuSub> */}
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
-					Delete
-					<DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+				<DropdownMenuItem
+					onClick={() => deleteSubscriber.mutate({ id: email.id })}
+				>
+					<>
+						Delete
+						<DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+					</>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

@@ -1,9 +1,12 @@
 import AddSubscriber from "~/app/_components/buttons/add-subscriber";
 import { columns } from "~/app/_components/table/columns";
 import SubscribersTable from "~/app/_components/table/subscribers-table";
-import { mails } from "~/lib/data";
+import { api } from "~/trpc/server";
 
-export default function Folder() {
+export default async function Folder(props: { params: { name; string } }) {
+	const subscribers = await api.folder.getSubscribers.query({
+		name: props.params.name,
+	});
 	return (
 		<section className="flex h-full flex-1 flex-col p-3">
 			<header className="flex items-center justify-between space-y-2">
@@ -14,7 +17,7 @@ export default function Folder() {
 					<AddSubscriber />
 				</div>
 			</header>
-			<SubscribersTable data={mails} columns={columns} />
+			<SubscribersTable data={subscribers} columns={columns} />
 		</section>
 	);
 }
