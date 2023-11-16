@@ -12,35 +12,31 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "../ui/dialog";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { api } from "~/trpc/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import type { Mail } from "~/lib/validations/mails";
 
-export default function AddSubscriber() {
+export default function EditSubscriber(props: Mail) {
 	const router = useRouter();
 	const [formData, setFormData] = useState({ address: "", name: "" });
 	// TODO: add zod validation check
 
-	const addNewSubscriber = api.subscriber.add.useMutation({
-		onSuccess(data, variables, context) {
+	const editSubscriber = api.subscriber.edit.useMutation({
+		onSuccess() {
 			router.refresh();
-			console.log("added new subscriber");
 		},
 	});
 
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button>
-					<PlusCircledIcon className="mr-3 h-5 w-5" />
-					Add Email
-				</Button>
+				<div>Edit</div>
 			</DialogTrigger>
 
 			<DialogContent className="sm:max-w-[475px]">
 				<DialogHeader>
-					<DialogTitle>Add Subscriber</DialogTitle>
+					<DialogTitle>Edit Subscriber</DialogTitle>
 					<DialogDescription>
 						This will save the current playground state as a preset which you
 						can access later or share with others.
@@ -54,6 +50,7 @@ export default function AddSubscriber() {
 							id="name"
 							autoFocus
 							placeholder="Davy Jones"
+							defaultValue={props?.name}
 							onChange={(e) =>
 								setFormData((prev) => ({ ...prev, name: e.target.value }))
 							}
@@ -64,6 +61,7 @@ export default function AddSubscriber() {
 						<Input
 							id="email"
 							type="email"
+							defaultValue={props.address}
 							placeholder="subscriber@email.com"
 							onChange={(e) =>
 								setFormData((prev) => ({ ...prev, address: e.target.value }))
@@ -77,13 +75,14 @@ export default function AddSubscriber() {
 						type="submit"
 						onClick={(e) => {
 							e.preventDefault();
-							addNewSubscriber.mutate({
+							editSubscriber.mutate({
 								address: formData.address,
 								...(formData.name && { name: formData.name }),
+								id: props.id,
 							});
 						}}
 					>
-						{addNewSubscriber.isLoading ? "Saving..." : "Save"}
+						{editSubscriber.isLoading ? "Saving..." : "Save"}
 					</Button>
 				</DialogFooter>
 			</DialogContent>
