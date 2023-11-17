@@ -7,6 +7,7 @@ import {
 	MailWarning,
 	SendHorizontal,
 	Users,
+	Envelope,
 	Container,
 } from "../icons";
 import { SidebarLink } from "./nav-links";
@@ -21,6 +22,10 @@ export default async function Sidebar() {
 	return (
 		<aside className="flex h-full w-60 flex-col justify-between space-y-3 p-3">
 			<section className="flex flex-col gap-1">
+				<SidebarLink href="/n/emails">
+					<Envelope className="mr-3 h-5 w-5" />
+					Emails
+				</SidebarLink>
 				<SidebarLink href="/n/subscribers">
 					<MailBox className="mr-3 h-5 w-5" />
 					Subscribers
@@ -37,7 +42,7 @@ export default async function Sidebar() {
 					<Trash className="mr-3 h-5 w-5" />
 					Trash
 				</SidebarLink>
-				<SidebarLink href="/settings">
+				<SidebarLink href="/n/settings">
 					<Settings className="mr-3 h-5 w-5" />
 					Settings
 				</SidebarLink>

@@ -1,15 +1,14 @@
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
+import { Inter, Figtree } from "next/font/google";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "./_context/theme-provider";
 import { Toaster } from "./_components/ui/toaster";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
-const inter = Inter({
+const figtree = Figtree({
 	subsets: ["latin"],
-	variable: "--font-sans",
 });
 
 export const metadata = {
@@ -25,7 +24,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={`font-sans ${inter.variable}`}>
+			<body className={`${figtree.className}`}>
 				<TRPCReactProvider cookies={cookies().toString()}>
 					<ThemeProvider
 						attribute="class"

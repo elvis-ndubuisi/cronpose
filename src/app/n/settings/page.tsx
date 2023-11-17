@@ -1,3 +1,3 @@
-export default function Settings({ children }: { children: React.ReactNode }) {
+export default function Settings() {
 	return <main>settings profiles</main>;
 }

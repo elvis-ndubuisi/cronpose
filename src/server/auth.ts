@@ -45,6 +45,13 @@ export const authOptions: NextAuthOptions = {
 				id: user.id,
 			},
 		}),
+		// jwt: async ({ token, user }) => {
+		// 	if (user) {
+		// 		token.id = user.id;
+		// 		token.email = user.email;
+		// 	}
+		// 	return token;
+		// },
 		// async jwt(params) {},
 		// async session({ session, user, token }) {},
 		// signIn(params) {
@@ -54,6 +61,7 @@ export const authOptions: NextAuthOptions = {
 		// },
 	},
 	// session: { strategy: "jwt" },
+	// jwt: { maxAge: 15 * 24 * 30 * 60 },
 	// pages: {
 	// 	signIn: "/auth",
 	// },
