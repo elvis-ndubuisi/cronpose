@@ -3,8 +3,6 @@ import { columns } from "~/app/_components/table/columns";
 import AddSubscriber from "~/app/_components/buttons/add-subscriber";
 import { api } from "~/trpc/server";
 
-import { mails } from "~/lib/data";
-
 export default async function Subscribers() {
 	const subscribers = await api.subscriber.getSubs.query();
 	return (
