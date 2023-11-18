@@ -1,5 +1,6 @@
 import Link from "next/link";
 import UserMenu from "../user-menu";
+import { ThemeToggleInline } from "../theme-toggle";
 import { getServerAuthSession } from "~/server/auth";
 
 const LINKS = [
@@ -25,7 +26,10 @@ export default async function DashboardMenu() {
 						</Link>
 					))}
 				</nav>
-				{session && <UserMenu session={session} />}
+				<div className="flex items-center space-x-3">
+					<ThemeToggleInline />
+					{session && <UserMenu session={session} />}
+				</div>
 			</section>
 		</header>
 	);

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { MoonIcon, SunIcon, LaptopIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 
 import { Button } from "./ui/button";
@@ -11,6 +11,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Tabs, TabsTrigger, TabsList } from "./ui/tabs";
 
 export function ThemeToggle() {
 	const { setTheme } = useTheme();
@@ -36,5 +37,25 @@ export function ThemeToggle() {
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
+	);
+}
+
+export function ThemeToggleInline() {
+	const { setTheme } = useTheme();
+
+	return (
+		<Tabs>
+			<TabsList className="grid grid-cols-3">
+				<TabsTrigger onClick={() => setTheme("dark")} value="dark">
+					<MoonIcon className="h-4 w-4" />
+				</TabsTrigger>
+				<TabsTrigger onClick={() => setTheme("light")} value="light">
+					<SunIcon className="h-4 w-4" />
+				</TabsTrigger>
+				<TabsTrigger onClick={() => setTheme("system")} value="system">
+					<LaptopIcon className="h-4 w-4" />
+				</TabsTrigger>
+			</TabsList>
+		</Tabs>
 	);
 }
