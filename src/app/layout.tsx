@@ -1,14 +1,15 @@
 import "~/styles/globals.css";
 
-import { Inter, Figtree } from "next/font/google";
+import { Finlandica } from "next/font/google";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "./_context/theme-provider";
 import { Toaster } from "./_components/ui/toaster";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
-const figtree = Figtree({
+const finlandica = Finlandica({
 	subsets: ["latin"],
+	variable: "--font-finlandica",
 });
 
 export const metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={`${figtree.className}`}>
+			<body className={`${finlandica.variable} font-sans font-light`}>
 				<TRPCReactProvider cookies={cookies().toString()}>
 					<ThemeProvider
 						attribute="class"

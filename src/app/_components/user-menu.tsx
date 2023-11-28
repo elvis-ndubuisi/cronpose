@@ -21,9 +21,9 @@ export default function UserMenu(props: { session: Session }) {
 	const user = props.session.user;
 	return (
 		<section className="flex items-center gap-2">
-			<Badge variant="secondary" className="">
+			{/* <Badge variant="secondary" className="">
 				200 MCR
-			</Badge>
+			</Badge> */}
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button variant={"ghost"} className="relative h-8 w-8 rounded-full">
@@ -45,6 +45,8 @@ export default function UserMenu(props: { session: Session }) {
 							</p>
 						</div>
 					</DropdownMenuLabel>
+					<DropdownMenuSeparator />
+					<p className="px-4 text-xs font-medium">200 Credits Remaining</p>
 					<DropdownMenuSeparator />
 					<DropdownMenuGroup>
 						<DropdownMenuItem asChild>
