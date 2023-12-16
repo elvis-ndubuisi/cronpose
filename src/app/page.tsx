@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 export default async function Home() {
 	// const hello = await api.post.hello.query({ text: "from tRPC" });
 	const session = await getServerAuthSession();
-	if (session?.user) redirect("/n/subscribers");
+	// if (session?.user) redirect("/n/subscribers");
 
 	return (
 		<>
