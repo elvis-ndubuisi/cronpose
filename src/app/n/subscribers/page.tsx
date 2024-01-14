@@ -2,8 +2,10 @@ import SubscribersTable from "~/app/_components/table/subscribers-table";
 import { columns } from "~/app/_components/table/columns";
 import AddSubscriber from "~/app/_components/buttons/add-subscriber";
 import { api } from "~/trpc/server";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Subscribers() {
+	noStore();
 	const subscribers = await api.subscriber.getSubs.query();
 	return (
 		<div className="flex h-full flex-1 flex-col p-3">

@@ -6,19 +6,14 @@ import {
 	MailBox,
 	MailWarning,
 	SendHorizontal,
-	Users,
 	Envelope,
-	Container,
 } from "../icons";
 import { SidebarLink } from "./nav-links";
 import { buttonVariants } from "../ui/button";
-import { ScrollArea } from "../ui/scroll-area";
 import Link from "next/link";
-import AddFolder from "../buttons/add-folder";
-import { api } from "~/trpc/server";
+import GroupList from "../group/group-list";
 
-export default async function Sidebar() {
-	const folders = await api.folder.getFolders.query();
+export default function Sidebar() {
 	return (
 		<aside className="flex h-full w-60 flex-col justify-between space-y-3 p-3">
 			<section className="flex flex-col gap-1">
@@ -52,24 +47,7 @@ export default async function Sidebar() {
 				</SidebarLink>
 			</section>
 			<Separator />
-			<ScrollArea className="flex flex-1 flex-col gap-1">
-				<div className="flex items-center justify-between">
-					<h2 className="mb-2 flex items-center space-x-2 text-lg font-semibold tracking-tight">
-						<Container className="h-5 w-5" /> <span>Groups</span>
-					</h2>
-					<AddFolder />
-				</div>
-				{/* TODO: add empty state view */}
-				{folders.map((folder) => (
-					<SidebarLink
-						href={`/n/folder/${folder.name.toLowerCase()}`}
-						key={folder.id}
-					>
-						<Users className="mr-3 h-5 w-5" />
-						{folder.name}
-					</SidebarLink>
-				))}
-			</ScrollArea>
+			<GroupList />
 			<Separator />
 			<Link
 				className={buttonVariants({ size: "lg", variant: "default" })}
